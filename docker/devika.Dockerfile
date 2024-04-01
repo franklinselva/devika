@@ -28,4 +28,4 @@ WORKDIR /home/nonroot/devika
 ENV PATH="/home/nonroot/devika/.venv/bin:$HOME/.cargo/bin:$PATH"
 RUN mkdir /home/nonroot/devika/db
 
-ENTRYPOINT [ "python3", "-m", "main" ]
+ENTRYPOINT [ "devika" ]
