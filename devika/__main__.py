@@ -50,9 +50,7 @@ def execute_agent():
         return jsonify({"error": "base_model is required"})
 
     thread = Thread(
-        target=lambda: Agent(base_model=base_model).execute(
-            prompt, project_name, web_search
-        )
+        target=lambda: Agent(base_model=base_model).execute(prompt, project_name)
     )
     thread.start()
 
@@ -131,7 +129,7 @@ def project_list():
 @app.route("/api/model-list", methods=["GET"])
 @route_logger(logger)
 def model_list():
-    models = LLM().list_models()
+    models = LLM()._get_supported_models()
     return jsonify({"models": models})
 
 
@@ -227,7 +225,7 @@ def get_settings():
     return jsonify({"settings": config})
 
 
-if __name__ == "__main__":
+def main():
     logger.info("Booting up... This may take a few seconds")
     init_devika()
     app.run(debug=False, port=1337, host="0.0.0.0")
